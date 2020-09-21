@@ -1,9 +1,11 @@
 import pymongo
 import os
+if os.path.exists("env.py"):
+  import env 
 
 MONGODB_URI = os.getenv("MONGO_URI")
-DBS_NAME = "sample_mflix"
-COLLECTION_NAME = "comments"
+DBS_NAME = "sample_airbnb"
+COLLECTION_NAME = "listingsAndReviews"
 
 def mongo_connect(url):
     try:
@@ -16,9 +18,12 @@ def mongo_connect(url):
 conn = mongo_connect(MONGODB_URI)
 coll = conn[DBS_NAME][COLLECTION_NAME]
 
-documents = coll.find()
+documents = coll.find() 
+total_count = coll.count_documents({}) 
 
-for doc in documents:
-    print(doc)
+# for doc in documents:
+#     print(doc)
+
+print(total_count)
 
 
